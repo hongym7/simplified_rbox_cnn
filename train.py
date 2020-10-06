@@ -46,13 +46,17 @@ from protos import model_pb2
 from protos import pipeline_pb2
 from protos import train_pb2
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+allow_growth=True
+
 tf.logging.set_verbosity(tf.logging.INFO)
 
 flags = tf.app.flags
-flags.DEFINE_string('train_dir', '',
+flags.DEFINE_string('train_dir', 'ckpt/',
                     'Directory to save the checkpoints and training summaries.')
 
-flags.DEFINE_string('pipeline_config_path', '',
+flags.DEFINE_string('pipeline_config_path', 'configs/rbox_cnn_resnet101.config',
                     'Path to a pipeline_pb2.TrainEvalPipelineConfig config '
                     'file. If provided, other configs are ignored')
 flags.DEFINE_integer('save_interval_secs', 3600,
